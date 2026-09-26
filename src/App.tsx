@@ -11,7 +11,6 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Experience } from './components/Experience';
 import { Skills } from './components/Skills';
-import { FeaturedProjects } from './components/FeaturedProjects';
 import { Certifications } from './components/Certifications';
 import { Education } from './components/Education';
 import { Footer } from './components/Footer';
@@ -38,7 +37,6 @@ export default function App() {
               <About />
               <Experience />
               <Skills />
-              <FeaturedProjects />
               <Certifications />
               <Education />
             </main>

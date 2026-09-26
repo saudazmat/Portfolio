@@ -230,13 +230,15 @@ export const Hero = () => {
               <ChevronDown size={16} />
             </button>
 
-            <button
-              onClick={() => scrollToSection('projects')}
+            <a
+              href="https://github.com/saudazmat"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/80 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all hover:border-cyan-500/40 hover:bg-slate-800 hover:text-white backdrop-blur-md"
             >
               <Github size={16} className="text-cyan-400" />
               <span>View my GitHub</span>
-            </button>
+            </a>
 
             <a
               href="/Muhammad-Saud-CV.pdf"

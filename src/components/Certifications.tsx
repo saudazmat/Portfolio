@@ -78,6 +78,31 @@ export const Certifications = () => {
         </div>
       </div>
 
+      <div className="mb-10 flex justify-center">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          className="overflow-hidden rounded-2xl bg-gradient-to-r from-orange-400 to-red-500 p-1"
+        >
+          <a
+            href="https://www.credly.com/users/muhammad-saud.587e4f00"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-2xl bg-slate-950 px-8 py-4 text-center font-bold text-white"
+          >
+            View all Credly badges
+          </a>
+        </motion.div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mb-6 text-center"
+      >
+        <h3 className="text-2xl font-bold text-white sm:text-3xl">Featured Certificates</h3>
+      </motion.div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {resumeData.certifications.map((cert: any, idx) => {
           const verificationUrl = cert.verificationUrl || getProviderLink(cert.name);
@@ -122,23 +147,6 @@ export const Certifications = () => {
             </div>
           </Card>
         )})}
-      </div>
-      
-      {/* Credly badge link */}
-      <div className="mt-16 flex flex-wrap justify-center gap-8">
-        <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="p-1 rounded-2xl bg-gradient-to-r from-orange-400 to-red-500 overflow-hidden"
-        >
-            <a 
-                href="https://www.credly.com/users/muhammad-saud.587e4f00" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block px-8 py-4 bg-slate-950 rounded-2xl text-white font-bold text-center"
-            >
-                View Credly Badges
-            </a>
-        </motion.div>
       </div>
     </section>
   );
