@@ -1,18 +1,8 @@
 import { motion } from 'motion/react';
-import { Github, GitFork, Star, ExternalLink, Terminal, Activity, ArrowUpRight } from 'lucide-react';
+import { Github, ExternalLink, Terminal, ArrowUpRight } from 'lucide-react';
 import { resumeData } from '../resumeData';
 
 export const FeaturedProjects = () => {
-  const getHeatmapColor = (level: number) => {
-    switch (level) {
-      case 1: return 'bg-emerald-950 border-emerald-900/60';
-      case 2: return 'bg-emerald-800 border-emerald-700/60';
-      case 3: return 'bg-emerald-600 border-emerald-500/70';
-      case 4: return 'bg-emerald-400 border-emerald-300 shadow-[0_0_8px_rgba(52,211,153,0.5)]';
-      default: return 'bg-slate-900/80 border-white/5';
-    }
-  };
-
   const getTechBadgeColor = (tech: string) => {
     const lower = tech.toLowerCase();
     if (lower.includes('python')) return 'bg-amber-500/10 text-amber-300 border-amber-500/20';
@@ -69,18 +59,18 @@ export const FeaturedProjects = () => {
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
             <div>
-              {/* Header: Repo path + GitHub icon */}
+              {/* Header: status tag + GitHub icon */}
               <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-white/5">
-                <div className="flex items-center gap-2 text-slate-400 text-xs font-mono truncate">
+                <div className="flex items-center gap-2 text-slate-400 text-xs font-mono uppercase tracking-wide truncate">
                   <Terminal size={14} className="text-cyan-400 shrink-0" />
-                  <span className="truncate group-hover:text-cyan-300 transition-colors">{project.repoPath}</span>
+                  <span className="truncate">{project.status}</span>
                 </div>
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white hover:bg-cyan-500/20 transition-all shrink-0"
-                  title="View repository"
+                  title="View on GitHub"
                 >
                   <Github size={16} />
                 </a>
@@ -93,44 +83,9 @@ export const FeaturedProjects = () => {
               <p className="text-sm text-slate-400 leading-relaxed mb-6 font-light">
                 {project.description}
               </p>
-
-              {/* GitHub Commit Heatmap Simulation */}
-              <div className="mb-6 p-3.5 rounded-xl bg-slate-950/80 border border-white/5">
-                <div className="flex items-center justify-between text-[11px] text-slate-500 font-mono mb-2">
-                  <span className="flex items-center gap-1 text-slate-400">
-                    <Activity size={12} className="text-emerald-400" />
-                    Commit Heatmap
-                  </span>
-                  <span className="text-emerald-400 font-medium">{project.commits}</span>
-                </div>
-                
-                <div className="grid grid-rows-4 grid-flow-col gap-1 auto-cols-fr">
-                  {project.heatmap.flatMap((row, rowIdx) =>
-                    row.map((level, colIdx) => (
-                      <div
-                        key={`${rowIdx}-${colIdx}`}
-                        className={`h-2.5 rounded-[2px] border ${getHeatmapColor(level)} transition-transform hover:scale-125 cursor-default`}
-                        title={`Activity intensity: Level ${level}`}
-                      />
-                    ))
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono mt-2 pt-1.5 border-t border-white/5">
-                  <span>Less</span>
-                  <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 rounded-[1px] bg-slate-900 border border-white/5" />
-                    <div className="w-2 h-2 rounded-[1px] bg-emerald-950 border border-emerald-900" />
-                    <div className="w-2 h-2 rounded-[1px] bg-emerald-800 border border-emerald-700" />
-                    <div className="w-2 h-2 rounded-[1px] bg-emerald-600 border border-emerald-500" />
-                    <div className="w-2 h-2 rounded-[1px] bg-emerald-400 shadow-[0_0_4px_rgba(52,211,153,0.6)]" />
-                  </div>
-                  <span>More</span>
-                </div>
-              </div>
             </div>
 
-            {/* Bottom: Tech tags & Repo metrics */}
+            {/* Bottom: Tech tags & code link */}
             <div>
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {project.technologies.map((tech, tIdx) => (
@@ -143,24 +98,14 @@ export const FeaturedProjects = () => {
                 ))}
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-white/5 text-xs text-slate-400 font-mono">
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1 hover:text-amber-300 transition-colors">
-                    <Star size={13} className="text-amber-400" />
-                    {project.stars}
-                  </span>
-                  <span className="flex items-center gap-1 hover:text-cyan-300 transition-colors">
-                    <GitFork size={13} className="text-cyan-400" />
-                    {project.forks}
-                  </span>
-                </div>
+              <div className="flex items-center justify-end pt-3 border-t border-white/5 text-xs text-slate-400 font-mono">
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-cyan-400 hover:text-cyan-300 group/link"
                 >
-                  <span>Code</span>
+                  <span>View code</span>
                   <ExternalLink size={12} className="group-hover/link:translate-x-0.5 transition-transform" />
                 </a>
               </div>

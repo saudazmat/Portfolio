@@ -7,7 +7,7 @@ export const resumeData = {
     phone: "+923034093917",
     url: "https://www.linkedin.com/in/engr-muhammad-saud-491471180",
     relocationHeadline: "📍 Relocating to Germany (A1/A2 German) — Open to Data Analyst, Data Scientist & RF Engineering Roles",
-    summary: "As a seasoned RF Engineer at Huawei Pakistan, I lead the optimization of network performance through comprehensive KPI monitoring, advanced data analytics, and strategic performance enhancements. My expertise lies in diagnosing network inefficiencies and implementing innovative, data-driven solutions to elevate service quality and system robustness. I utilize cutting-edge Business Intelligence tools to derive actionable insights, fostering improved network reliability and customer satisfaction. By integrating advanced project management frameworks, I drive cross-functional collaboration, ensure the alignment of technical objectives with organizational goals, and deliver scalable solutions that support continuous operational excellence and strategic growth.\n\nMy core competencies encompass information and communications technology (ICT), CCNA(R&S), cybersecurity, and antenna design, reflecting a steadfast commitment to continuous learning and adaptive problem-solving. This comprehensive skill set empowers me to navigate complex technical challenges with a strategic, innovative approach, ensuring solutions are both technically sound and aligned with broader organizational objectives. My ability to integrate diverse disciplines enables me to deliver impactful, scalable results that enhance operational efficiency and drive long-term business success.",
+    summary: "RF Engineer at Huawei Pakistan, working on 2G/4G/5G network performance: monitoring KPIs, diagnosing faults, and using data analytics and Power BI dashboards to guide optimization decisions. I combine that telecom background with hands-on data science skills — Python, SQL, and statistical modeling — to turn raw network and operational data into clear, actionable reporting.\n\nBackground spans ICT, CCNA (Routing & Switching), cybersecurity, and antenna/RF design, built through a mix of industry roles, freelance work, and IBM, Google, and Cisco professional certifications. I'm looking to bring that combination of telecom domain knowledge and data analytics skill to a Data Analyst, Data Scientist, or RF Engineering role in Germany.",
     location: {
       address: "",
       postalCode: "",
@@ -166,15 +166,17 @@ export const resumeData = {
     },
     {
       company: "Fiverr",
-      position: "Network Designer",
+      position: "Freelance Network Designer",
       website: "",
       startDate: "2019-01-01",
       endDate: "2023-02-01",
       duration: "4 years 2 months",
-      location: "Tel Aviv District, Israel",
-      summary: "I perform Cisco Packet Tracer labs.",
+      location: "Remote (international clients)",
+      summary: "Designed and simulated enterprise network topologies for freelance clients using Cisco Packet Tracer, covering routing, switching, and basic network security configurations.",
       highlights: [
-        "Perform Cisco Packet Tracer labs"
+        "Built and documented network topology designs for client requirements",
+        "Simulated routing, switching, and VLAN configurations in Cisco Packet Tracer",
+        "Delivered configuration walkthroughs and troubleshooting support to clients"
       ]
     },
     {
@@ -304,57 +306,32 @@ export const resumeData = {
       description: "Drive cross-functional collaboration and ensure alignment of technical objectives with organizational goals."
     }
   ],
+  // NOTE: Replace the `url` for each project below with the real GitHub repo link
+  // once it's public. Until then these link to your GitHub profile so nothing 404s.
+  // No star/fork/commit counts are shown anymore since those were placeholder numbers,
+  // not real data pulled from GitHub — showing fake stats is a bigger credibility risk
+  // than showing none. Add them back (ideally live via the GitHub API) once real.
   featuredProjects: [
     {
       name: "telecom-kpi-anomaly-detector",
-      repoPath: "github/telecom-kpi-anomaly-engine",
       description: "Automated 4G/5G RAN cellular KPI anomaly detection engine utilizing Python (Pandas, Scikit-learn), SQL data modeling, and Power BI dashboards to forecast cell degradation and traffic bottlenecks.",
       url: "https://github.com/saudazmat",
       technologies: ["Python", "SQL", "Power BI", "Pandas", "Scikit-Learn"],
-      stars: 23,
-      forks: 6,
-      commits: "54 commits",
-      activity: "Active",
-      heatmap: [
-        [1, 2, 0, 3, 2, 4, 3, 2, 1, 4, 2, 3],
-        [0, 1, 3, 2, 4, 2, 1, 3, 4, 2, 3, 1],
-        [2, 3, 1, 4, 0, 2, 3, 4, 2, 1, 3, 2],
-        [1, 0, 2, 3, 1, 4, 2, 3, 1, 2, 4, 3]
-      ]
+      status: "Personal project"
     },
     {
       name: "rf-traffic-analytics-pipeline",
-      repoPath: "github/rf-traffic-analytics-pipeline",
-      description: "Production telemetry ETL pipeline extracting VoLTE throughput, Grade of Service, and Call Drop Rate metrics into automated reporting and statistical distribution models.",
+      description: "Telemetry ETL pipeline extracting VoLTE throughput, Grade of Service, and Call Drop Rate metrics into automated reporting and statistical distribution models.",
       url: "https://github.com/saudazmat",
       technologies: ["Python", "SQL", "Azure", "ETL", "VoLTE"],
-      stars: 31,
-      forks: 9,
-      commits: "68 commits",
-      activity: "Active",
-      heatmap: [
-        [2, 4, 3, 1, 3, 4, 2, 1, 4, 3, 2, 4],
-        [1, 3, 2, 4, 1, 2, 3, 4, 2, 3, 1, 3],
-        [3, 1, 4, 2, 3, 4, 1, 2, 3, 4, 2, 1],
-        [2, 3, 1, 4, 2, 1, 4, 3, 2, 4, 1, 2]
-      ]
+      status: "Personal project"
     },
     {
       name: "azure-cloud-network-sentinel",
-      repoPath: "github/azure-cloud-network-sentinel",
-      description: "Distributed Linux system administration and cybersecurity probe deployed on Azure with MongoDB, automating secure SSH telemetry collection and network anomaly detection.",
+      description: "Linux system administration and cybersecurity probe deployed on Azure with MongoDB, automating secure SSH telemetry collection and network anomaly detection.",
       url: "https://github.com/saudazmat",
       technologies: ["Linux", "Azure", "MongoDB", "Cybersecurity", "Bash"],
-      stars: 17,
-      forks: 4,
-      commits: "41 commits",
-      activity: "Maintained",
-      heatmap: [
-        [1, 2, 3, 0, 2, 3, 1, 4, 2, 3, 1, 2],
-        [2, 1, 4, 2, 1, 3, 2, 1, 3, 4, 2, 1],
-        [0, 3, 2, 1, 4, 2, 3, 1, 2, 3, 4, 2],
-        [1, 2, 1, 3, 2, 4, 1, 2, 3, 1, 2, 3]
-      ]
+      status: "Personal project"
     }
   ],
   extra: []

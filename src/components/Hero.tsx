@@ -75,29 +75,15 @@ export const Hero = () => {
                   referrerPolicy="no-referrer"
                 />
 
-                {/* Bottom dark vignette for status strip */}
-                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
+                {/* Bottom dark vignette for caption */}
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
 
-                {/* Cyber HUD Status Badge */}
-                <div className="absolute bottom-3 inset-x-3 flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-900/80 border border-cyan-500/30 backdrop-blur-md text-[11px] font-mono text-cyan-200">
-                  <div className="flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                    </span>
-                    <span className="font-semibold text-white">Telecom & Cyber HUD</span>
-                  </div>
-                  <span className="text-cyan-400 font-bold">2G / 4G / 5G KPI</span>
+                {/* Role caption */}
+                <div className="absolute bottom-3 inset-x-3 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/80 border border-cyan-500/30 backdrop-blur-md text-[11px] font-mono text-cyan-200">
+                  <span className="font-semibold text-white">RF Engineer</span>
+                  <span className="text-slate-500">·</span>
+                  <span className="text-cyan-400">2G / 4G / 5G KPI Optimization</span>
                 </div>
-              </div>
-
-              {/* Sub-label under avatar */}
-              <div className="pt-3 pb-1 px-3 flex items-center justify-between text-xs font-mono text-slate-400">
-                <span className="flex items-center gap-1.5 text-cyan-400">
-                  <ShieldCheck size={14} />
-                  Verified Engineer
-                </span>
-                <span>ID: MS-HUAWEI-PK</span>
               </div>
             </div>
           </div>
@@ -111,9 +97,9 @@ export const Hero = () => {
           className="lg:col-span-7 flex flex-col items-start text-left"
         >
           {/* Status badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-4 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono uppercase tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Active Relocation Candidate
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-4 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            Open to Relocation
           </div>
 
           {/* Prominent Name */}
@@ -188,6 +174,15 @@ export const Hero = () => {
               <Github size={16} className="text-cyan-400" />
               <span>Featured GitHub Repos</span>
             </button>
+
+            <a
+              href="/Muhammad-Saud-CV.pdf"
+              download
+              className="px-6 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-white/10 hover:border-cyan-500/40 text-sm font-semibold transition-all backdrop-blur-md flex items-center gap-2"
+            >
+              <Download size={16} className="text-cyan-400" />
+              <span>Download CV</span>
+            </a>
 
             <div className="flex items-center gap-3 ml-auto">
               <a
