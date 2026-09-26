@@ -170,47 +170,54 @@ export const Hero = () => {
           </p>
 
           {/* Professional profile cards */}
-          <div className="mb-6 grid w-full grid-cols-3 gap-2 sm:gap-3.5 lg:mb-5">
-            {[...resumeData.basics.profiles]
-              .sort((a, b) => profileOrder.indexOf(a.network.toLowerCase()) - profileOrder.indexOf(b.network.toLowerCase()))
-              .map((profile, idx) => (
-              <motion.a
-                key={idx}
-                href={profile.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex min-w-0 flex-col justify-between rounded-2xl border border-white/10 bg-slate-900/60 p-2.5 shadow-sm backdrop-blur-xl transition-all hover:border-cyan-400/50 hover:bg-slate-800/80 hover:shadow-[0_8px_25px_rgba(6,182,212,0.15)] group sm:p-4"
-              >
-                <div className="mb-3 flex items-center justify-between">
-                  {getProfileIcon(profile.network)}
-                  <ArrowUpRight size={14} className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                </div>
-                <div>
-                  <div className="truncate text-sm font-bold text-white transition-colors group-hover:text-cyan-300 sm:text-base">
-                    {profile.network}
+          <div className="mb-6 flex w-full flex-col gap-3 lg:mb-5 xl:flex-row xl:items-stretch">
+            <div className="grid min-w-0 flex-1 grid-cols-3 gap-3.5">
+              {[...resumeData.basics.profiles]
+                .sort((a, b) => profileOrder.indexOf(a.network.toLowerCase()) - profileOrder.indexOf(b.network.toLowerCase()))
+                .map((profile, idx) => (
+                <motion.a
+                  key={idx}
+                  href={profile.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex min-w-0 flex-col justify-between rounded-2xl border border-white/10 bg-slate-900/60 p-3.5 shadow-sm backdrop-blur-xl transition-all hover:border-cyan-400/50 hover:bg-slate-800/80 hover:shadow-[0_8px_25px_rgba(6,182,212,0.15)] sm:p-4"
+                >
+                  <div className="mb-3 flex items-center justify-between">
+                    {getProfileIcon(profile.network)}
+                    <ArrowUpRight size={14} className="text-slate-500 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan-400" />
                   </div>
-                  <div className="text-[11px] text-slate-400 font-mono truncate">
-                    {profile.tagline || 'Professional'}
-                  </div>
-                  {profile.network.toLowerCase() === 'credly' && (
-                    <div className="mt-2 flex items-center gap-1.5" aria-label="Featured professional certification badges">
-                      {profileBadges.map(badge => (
-                        <img
-                          key={badge.name}
-                          src={badge.image}
-                          alt=""
-                          title={badge.name}
-                          loading="lazy"
-                          className="h-8 w-8 rounded-lg border border-white/20 bg-white p-0.5 object-contain sm:h-9 sm:w-9"
-                        />
-                      ))}
+                  <div>
+                    <div className="truncate text-sm font-bold text-white transition-colors group-hover:text-cyan-300 sm:text-base">
+                      {profile.network}
                     </div>
-                  )}
+                    <div className="truncate text-[11px] font-mono text-slate-400">
+                      {profile.tagline || 'Professional'}
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+            <div
+              aria-label="Featured certification badges"
+              className="flex flex-wrap items-center justify-center gap-2 xl:justify-end"
+            >
+              {profileBadges.map(badge => (
+                <div
+                  key={badge.name}
+                  title={badge.name}
+                  className="flex h-[76px] w-[76px] items-center justify-center rounded-2xl border border-white/10 bg-slate-900/70 p-1.5 shadow-sm backdrop-blur-xl sm:h-[88px] sm:w-[88px]"
+                >
+                  <img
+                    src={badge.image}
+                    alt={badge.name}
+                    loading="lazy"
+                    className="h-full w-full rounded-xl bg-white object-contain p-1"
+                  />
                 </div>
-              </motion.a>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Action CTAs & Contact Pills */}
