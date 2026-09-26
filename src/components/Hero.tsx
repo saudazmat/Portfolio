@@ -1,10 +1,67 @@
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Download, ChevronDown, Linkedin, Mail, Phone, Award, GraduationCap, Github, ArrowUpRight, ShieldCheck, MapPin } from 'lucide-react';
+import { Download, ChevronDown, Linkedin, Mail, Phone, Award, Github, ArrowUpRight, MapPin, Copy, ExternalLink } from 'lucide-react';
 import { resumeData } from '../resumeData';
+import headshot from '../assets/images/headshot.png';
+import techBackground from '../assets/images/tech-background.png';
+import ibmSupportBadge from '../assets/images/ibm-it-support-professional-certificate.png';
+import googleProjectBadge from '../assets/images/google-project-management-certificate-v1.png';
+import ibmCybersecurityBadge from '../assets/images/ibm-cybersecurity-analyst-professional-certificate.png';
+
+const profileOrder = ['linkedin', 'github', 'credly'];
+const profileBadges = [
+  { name: 'IBM IT Support Professional Certificate', image: ibmSupportBadge },
+  { name: 'Google Project Management Certificate', image: googleProjectBadge },
+  { name: 'IBM Cybersecurity Analyst Professional Certificate', image: ibmCybersecurityBadge },
+];
 
 export const Hero = () => {
+  const [openContactMenu, setOpenContactMenu] = useState<'email' | 'phone' | null>(null);
+  const [copyStatus, setCopyStatus] = useState<string | null>(null);
+  const contactMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const closeMenu = (event: PointerEvent) => {
+      if (event.target instanceof Node && !contactMenuRef.current?.contains(event.target)) {
+        setOpenContactMenu(null);
+        setCopyStatus(null);
+      }
+    };
+    const closeMenuOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenContactMenu(null);
+        setCopyStatus(null);
+      }
+    };
+
+    document.addEventListener('pointerdown', closeMenu);
+    document.addEventListener('keydown', closeMenuOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeMenu);
+      document.removeEventListener('keydown', closeMenuOnEscape);
+    };
+  }, []);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const copyContact = async (value: string, label: string) => {
+    try {
+      if (!navigator.clipboard) {
+        throw new Error('Clipboard access is unavailable in this browser or context.');
+      }
+      await navigator.clipboard.writeText(value);
+      setCopyStatus(`${label} copied.`);
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : 'Clipboard permission was denied.';
+      setCopyStatus(`Could not copy ${label.toLowerCase()}: ${reason}`);
+    }
+  };
+
+  const toggleContactMenu = (menu: 'email' | 'phone') => {
+    setCopyStatus(null);
+    setOpenContactMenu(current => current === menu ? null : menu);
   };
 
   const getProfileIcon = (network: string) => {
@@ -13,12 +70,6 @@ export const Hero = () => {
         return (
           <div className="p-2.5 rounded-xl bg-blue-600/20 text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
             <Linkedin size={22} />
-          </div>
-        );
-      case 'coursera':
-        return (
-          <div className="p-2.5 rounded-xl bg-cyan-600/20 text-cyan-400 group-hover:bg-cyan-600 group-hover:text-white transition-all">
-            <GraduationCap size={22} />
           </div>
         );
       case 'credly':
@@ -43,49 +94,38 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center px-6 pt-24 pb-16 overflow-hidden max-w-7xl mx-auto">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none -z-10" />
+    <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-10">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none bg-cover bg-center opacity-[0.12] mix-blend-screen"
+        style={{ backgroundImage: `url(${techBackground})`, backgroundPosition: 'center 45%' }}
+      />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-slate-950/55 via-slate-950/80 to-slate-950/65" />
+      <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none bg-gradient-to-b from-transparent to-slate-950" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-        {/* Left Area: Professionally Framed Avatar Image with Glowing Arched Glassmorphism Border */}
+      {/* Ambient background glow */}
+      <div className="absolute z-[1] top-1/4 left-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute z-[1] top-1/3 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative z-10 mx-auto grid w-full max-w-[1440px] grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-[minmax(280px,0.75fr)_minmax(0,1.5fr)] lg:gap-10 xl:grid-cols-[minmax(320px,0.8fr)_minmax(0,1.5fr)] xl:gap-14">
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="lg:col-span-5 flex flex-col items-center"
+          className="flex flex-col items-center"
         >
-          {/* Grand arched portal frame */}
-          <div className="relative w-full max-w-md group">
-            {/* Outer neon halo glow */}
-            <div className="absolute -inset-1.5 rounded-t-[140px] md:rounded-t-[180px] rounded-b-[40px] bg-gradient-to-b from-cyan-400/40 via-blue-500/30 to-indigo-600/20 blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 -z-10" />
-
-            {/* Arched glassmorphism frame container */}
-            <div className="relative rounded-t-[136px] md:rounded-t-[176px] rounded-b-[36px] p-2.5 bg-slate-900/70 border-2 border-cyan-400/40 backdrop-blur-2xl shadow-[0_0_45px_rgba(6,182,212,0.3)] overflow-hidden transition-transform duration-500 group-hover:scale-[1.01]">
-              {/* Top rim specular highlight */}
-              <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-cyan-400/25 to-transparent pointer-events-none z-10" />
-
-              {/* Avatar Image (Cellular tower, Engr. Saud, and glowing cybersecurity shield) */}
-              <div className="relative rounded-t-[124px] md:rounded-t-[164px] rounded-b-[26px] overflow-hidden bg-slate-950 aspect-[4/3] sm:aspect-[16/11]">
-                <img
-                  src="/avatar.jpg"
-                  alt="Engr. Muhammad Saud - RF & Data Specialist with Telecom Tower and Digital Security Shield"
-                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-
-                {/* Bottom dark vignette for caption */}
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent pointer-events-none" />
-
-                {/* Role caption */}
-                <div className="absolute bottom-3 inset-x-3 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/80 border border-cyan-500/30 backdrop-blur-md text-[11px] font-mono text-cyan-200">
-                  <span className="font-semibold text-white">RF Engineer</span>
-                  <span className="text-slate-500">·</span>
-                  <span className="text-cyan-400">2G / 4G / 5G KPI Optimization</span>
-                </div>
-              </div>
-            </div>
+          <div className="group relative flex aspect-square w-[min(68vw,240px)] items-center justify-center sm:w-[min(42vw,300px)] lg:w-[320px] xl:w-[360px]">
+            <div className="absolute inset-[8%] rounded-full border border-cyan-400/20 bg-gradient-to-b from-cyan-400/[0.08] to-blue-500/[0.03] shadow-[0_0_55px_rgba(6,182,212,0.12),inset_0_0_35px_rgba(6,182,212,0.06)]" />
+            <div className="absolute inset-[12%] rounded-full bg-cyan-500/20 blur-3xl transition-opacity duration-700 group-hover:opacity-90" />
+            <img
+              src={headshot}
+              alt="Engr. Muhammad Saud"
+              className="relative z-10 h-full w-full object-contain object-center drop-shadow-[0_12px_32px_rgba(34,211,238,0.12)] transition-transform duration-500 group-hover:scale-[1.01]"
+              style={{
+                maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+              }}
+            />
           </div>
         </motion.div>
 
@@ -94,7 +134,7 @@ export const Hero = () => {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="lg:col-span-7 flex flex-col items-start text-left"
+          className="flex flex-col items-start text-left"
         >
           {/* Status badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-4 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono uppercase tracking-wider">
@@ -103,7 +143,7 @@ export const Hero = () => {
           </div>
 
           {/* Prominent Name */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-3 tracking-tight">
+          <h1 className="mb-3 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
             {resumeData.basics.name}
           </h1>
 
@@ -125,13 +165,15 @@ export const Hero = () => {
           </div>
 
           {/* Role Summary / Headline */}
-          <p className="text-base sm:text-lg text-slate-300 mb-8 font-light leading-relaxed max-w-2xl">
+          <p className="mb-6 max-w-3xl text-base font-light leading-relaxed text-slate-300 sm:text-lg lg:mb-5">
             RF Engineer at <span className="text-white font-semibold">Huawei Pakistan</span> specializing in 2G/4G/5G network KPI performance optimization, combined with cutting-edge expertise in <span className="text-cyan-300 font-semibold">Data Science</span>, <span className="text-cyan-300 font-semibold">Python</span>, <span className="text-cyan-300 font-semibold">SQL</span>, and <span className="text-cyan-300 font-semibold">Power BI</span> analytics.
           </p>
 
-          {/* 4 Glassmorphic Action Cards: LinkedIn, Coursera, Credly, GitHub */}
-          <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-8">
-            {resumeData.basics.profiles.map((profile, idx) => (
+          {/* Professional profile cards */}
+          <div className="mb-6 grid w-full grid-cols-3 gap-2 sm:gap-3.5 lg:mb-5">
+            {[...resumeData.basics.profiles]
+              .sort((a, b) => profileOrder.indexOf(a.network.toLowerCase()) - profileOrder.indexOf(b.network.toLowerCase()))
+              .map((profile, idx) => (
               <motion.a
                 key={idx}
                 href={profile.url}
@@ -139,19 +181,33 @@ export const Hero = () => {
                 rel="noopener noreferrer"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-cyan-400/50 hover:bg-slate-800/80 backdrop-blur-xl transition-all shadow-sm hover:shadow-[0_8px_25px_rgba(6,182,212,0.15)] group"
+                className="flex min-w-0 flex-col justify-between rounded-2xl border border-white/10 bg-slate-900/60 p-2.5 shadow-sm backdrop-blur-xl transition-all hover:border-cyan-400/50 hover:bg-slate-800/80 hover:shadow-[0_8px_25px_rgba(6,182,212,0.15)] group sm:p-4"
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="mb-3 flex items-center justify-between">
                   {getProfileIcon(profile.network)}
                   <ArrowUpRight size={14} className="text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </div>
                 <div>
-                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  <div className="truncate text-sm font-bold text-white transition-colors group-hover:text-cyan-300 sm:text-base">
                     {profile.network}
                   </div>
                   <div className="text-[11px] text-slate-400 font-mono truncate">
                     {profile.tagline || 'Professional'}
                   </div>
+                  {profile.network.toLowerCase() === 'credly' && (
+                    <div className="mt-2 flex items-center gap-1.5" aria-label="Featured professional certification badges">
+                      {profileBadges.map(badge => (
+                        <img
+                          key={badge.name}
+                          src={badge.image}
+                          alt=""
+                          title={badge.name}
+                          loading="lazy"
+                          className="h-8 w-8 rounded-lg border border-white/20 bg-white p-0.5 object-contain sm:h-9 sm:w-9"
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.a>
             ))}
@@ -169,10 +225,10 @@ export const Hero = () => {
 
             <button
               onClick={() => scrollToSection('projects')}
-              className="px-6 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-white/10 hover:border-cyan-500/40 text-sm font-semibold transition-all backdrop-blur-md flex items-center gap-2"
+              className="flex items-center gap-2 rounded-xl border border-white/10 bg-slate-900/80 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all hover:border-cyan-500/40 hover:bg-slate-800 hover:text-white backdrop-blur-md"
             >
               <Github size={16} className="text-cyan-400" />
-              <span>Featured GitHub Repos</span>
+              <span>View my GitHub</span>
             </button>
 
             <a
@@ -184,21 +240,75 @@ export const Hero = () => {
               <span>Download CV</span>
             </a>
 
-            <div className="flex items-center gap-3 ml-auto">
-              <a
-                href={`mailto:${resumeData.basics.email}`}
-                className="p-3 rounded-xl bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 transition-all"
-                title={`Email ${resumeData.basics.email}`}
-              >
-                <Mail size={18} />
-              </a>
-              <a
-                href={`tel:${resumeData.basics.phone}`}
-                className="p-3 rounded-xl bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 transition-all"
-                title={`Call ${resumeData.basics.phone}`}
-              >
-                <Phone size={18} />
-              </a>
+            <div ref={contactMenuRef} className="ml-auto flex items-center gap-3">
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => toggleContactMenu('email')}
+                  aria-label="Email contact options"
+                  aria-haspopup="menu"
+                  aria-expanded={openContactMenu === 'email'}
+                  className="rounded-xl border border-white/10 bg-white/5 p-3 text-slate-300 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/20 hover:text-cyan-300"
+                >
+                  <Mail size={18} />
+                </button>
+                {openContactMenu === 'email' && (
+                  <div role="menu" aria-label="Email options" className="absolute bottom-full right-0 z-30 mb-2 w-64 rounded-xl border border-white/10 bg-slate-900 p-3 shadow-xl shadow-black/30">
+                    <p className="mb-2 break-all px-2 text-xs text-slate-400">{resumeData.basics.email}</p>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => void copyContact(resumeData.basics.email, 'Email address')}
+                      className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-slate-200 hover:bg-white/10"
+                    >
+                      <Copy size={15} /> Copy email
+                    </button>
+                    <a
+                      role="menuitem"
+                      href={`mailto:${resumeData.basics.email}`}
+                      onClick={() => setOpenContactMenu(null)}
+                      className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-200 hover:bg-white/10"
+                    >
+                      <ExternalLink size={15} /> Open email app
+                    </a>
+                    {copyStatus && <p aria-live="polite" className="mt-2 px-2 text-xs text-cyan-300">{copyStatus}</p>}
+                  </div>
+                )}
+              </div>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => toggleContactMenu('phone')}
+                  aria-label="Phone contact options"
+                  aria-haspopup="menu"
+                  aria-expanded={openContactMenu === 'phone'}
+                  className="rounded-xl border border-white/10 bg-white/5 p-3 text-slate-300 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/20 hover:text-cyan-300"
+                >
+                  <Phone size={18} />
+                </button>
+                {openContactMenu === 'phone' && (
+                  <div role="menu" aria-label="Phone options" className="absolute bottom-full right-0 z-30 mb-2 w-64 rounded-xl border border-white/10 bg-slate-900 p-3 shadow-xl shadow-black/30">
+                    <p className="mb-2 px-2 text-xs text-slate-400">{resumeData.basics.phone}</p>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => void copyContact(resumeData.basics.phone, 'Phone number')}
+                      className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-slate-200 hover:bg-white/10"
+                    >
+                      <Copy size={15} /> Copy phone number
+                    </button>
+                    <a
+                      role="menuitem"
+                      href={`tel:${resumeData.basics.phone}`}
+                      onClick={() => setOpenContactMenu(null)}
+                      className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-200 hover:bg-white/10"
+                    >
+                      <ExternalLink size={15} /> Call number
+                    </a>
+                    {copyStatus && <p aria-live="polite" className="mt-2 px-2 text-xs text-cyan-300">{copyStatus}</p>}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </motion.div>

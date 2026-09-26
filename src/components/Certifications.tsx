@@ -1,6 +1,24 @@
 import { motion } from 'motion/react';
 import { Award, ShieldCheck, GraduationCap, Globe, Shield } from 'lucide-react';
 import { resumeData } from '../resumeData';
+import ibmSupportBadge from '../assets/images/ibm-it-support-professional-certificate.png';
+import googleProjectBadge from '../assets/images/google-project-management-certificate-v1.png';
+import ibmCybersecurityBadge from '../assets/images/ibm-cybersecurity-analyst-professional-certificate.png';
+
+const featuredBadges = [
+  {
+    name: 'IBM IT Support Professional Certificate',
+    image: ibmSupportBadge,
+  },
+  {
+    name: 'Google Project Management Certificate',
+    image: googleProjectBadge,
+  },
+  {
+    name: 'IBM Cybersecurity Analyst Professional Certificate',
+    image: ibmCybersecurityBadge,
+  },
+];
 
 const getCertIcon = (name: string) => {
   const n = name.toLowerCase();
@@ -11,10 +29,9 @@ const getCertIcon = (name: string) => {
 };
 
 const getProviderLink = (name: string) => {
-  const coursera = "https://www.coursera.org/user/684cf226b5a5db25f46498ca60cf7265";
   const credly = "https://www.credly.com/users/muhammad-saud.587e4f00";
   if (name.toLowerCase().includes('google') || name.toLowerCase().includes('cyber')) return credly;
-  return coursera;
+  return undefined;
 };
 
 export const Certifications = () => {
@@ -31,18 +48,50 @@ export const Certifications = () => {
         <p className="mt-4 text-slate-400">Verified professional certifications from global industry leaders.</p>
       </motion.div>
 
+      <div className="mb-14">
+        <h3 className="mb-5 text-center text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
+          Featured Badges
+        </h3>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredBadges.map((badge, idx) => (
+            <motion.figure
+              key={badge.name}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-md sm:p-6"
+            >
+              <div className="mb-4 flex h-48 w-full items-center justify-center rounded-xl border border-white/10 bg-slate-900/80 p-4 shadow-lg shadow-black/20 sm:h-56">
+                <img
+                  src={badge.image}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full rounded-lg bg-white object-contain p-2"
+                />
+              </div>
+              <figcaption className="text-sm font-semibold leading-snug text-slate-200 sm:text-base">
+                {badge.name}
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {resumeData.certifications.map((cert: any, idx) => (
-          <motion.a
+        {resumeData.certifications.map((cert: any, idx) => {
+          const verificationUrl = cert.verificationUrl || getProviderLink(cert.name);
+          const Card = verificationUrl ? motion.a : motion.div;
+
+          return (
+          <Card
             key={idx}
-            href={cert.verificationUrl || getProviderLink(cert.name)}
-            target="_blank"
-            rel="noopener noreferrer"
+            {...(verificationUrl ? { href: verificationUrl, target: '_blank', rel: 'noopener noreferrer' } : {})}
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.05 }}
-            className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:bg-white/10 hover:border-blue-500/50 transition-all overflow-hidden"
+            className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all ${verificationUrl ? 'hover:border-blue-500/50 hover:bg-white/10' : ''}`}
           >
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                {getCertIcon(cert.name)}
@@ -71,26 +120,12 @@ export const Certifications = () => {
               <span>Verify Candidate</span>
               <Globe size={11} />
             </div>
-          </motion.a>
-        ))}
+          </Card>
+        )})}
       </div>
       
-      {/* Visual links for Coursera and Credly badges */}
+      {/* Credly badge link */}
       <div className="mt-16 flex flex-wrap justify-center gap-8">
-        <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="p-1 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 overflow-hidden"
-        >
-            <a 
-                href="https://www.coursera.org/user/684cf226b5a5db25f46498ca60cf7265" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block px-8 py-4 bg-slate-950 rounded-2xl text-white font-bold text-center"
-            >
-                View all Coursera Certificates
-            </a>
-        </motion.div>
-        
         <motion.div 
             whileHover={{ scale: 1.05 }}
             className="p-1 rounded-2xl bg-gradient-to-r from-orange-400 to-red-500 overflow-hidden"

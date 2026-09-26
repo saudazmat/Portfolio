@@ -1,11 +1,10 @@
 import { motion } from 'motion/react';
-import { Linkedin, Mail, Phone, ArrowUp, ExternalLink, Award, GraduationCap, Github } from 'lucide-react';
+import { Linkedin, Mail, Phone, ArrowUp, ExternalLink, Award, Github } from 'lucide-react';
 import { resumeData } from '../resumeData';
 
 const getProfileIcon = (network: string) => {
   switch (network.toLowerCase()) {
     case 'linkedin': return <Linkedin size={20} />;
-    case 'coursera': return <GraduationCap size={20} />;
     case 'credly': return <Award size={20} />;
     case 'github': return <Github size={20} />;
     default: return <ExternalLink size={20} />;

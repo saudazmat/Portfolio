@@ -1,10 +1,11 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
-import { Briefcase, Calendar, MapPin, ChevronRight, Trophy } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, ChevronRight, ChevronDown, Trophy } from 'lucide-react';
 import { resumeData } from '../resumeData';
 
 export const Experience = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+  const [showAllExperience, setShowAllExperience] = useState(false);
 
   return (
     <section id="experience" className="py-24 px-6 max-w-6xl mx-auto">
@@ -37,7 +38,7 @@ export const Experience = () => {
       </div>
 
       <div className="space-y-6">
-        {resumeData.work.map((job, idx) => (
+        {resumeData.work.slice(0, showAllExperience ? undefined : 1).map((job, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, x: -20 }}
@@ -116,6 +117,23 @@ export const Experience = () => {
           </motion.div>
         ))}
       </div>
+
+      {resumeData.work.length > 1 && (
+        <div className="mt-8 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setShowAllExperience(isShowing => !isShowing)}
+            aria-expanded={showAllExperience}
+            className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-300 transition-colors hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-white"
+          >
+            {showAllExperience ? 'Show less experience' : 'Show all experience'}
+            <ChevronDown
+              size={16}
+              className={`transition-transform ${showAllExperience ? 'rotate-180' : ''}`}
+            />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

@@ -23,12 +23,6 @@ export const resumeData = {
         tagline: "Professional Profile"
       },
       {
-        network: "Coursera",
-        username: "muhammad-saud",
-        url: "https://www.coursera.org/user/684cf226b5a5db25f46498ca60cf7265",
-        tagline: "Verified Specializations"
-      },
-      {
         network: "Credly",
         username: "muhammad-saud",
         url: "https://www.credly.com/users/muhammad-saud.587e4f00",
@@ -292,8 +286,7 @@ export const resumeData = {
     {
       name: "The Pronunciation of American English",
       issuer: "Coursera",
-      date: "2023",
-      verificationUrl: "https://www.coursera.org/user/684cf226b5a5db25f46498ca60cf7265"
+      date: "2023"
     }
   ],
   achievements: [
@@ -304,34 +297,6 @@ export const resumeData = {
     {
       title: "Cross-functional Collaboration",
       description: "Drive cross-functional collaboration and ensure alignment of technical objectives with organizational goals."
-    }
-  ],
-  // NOTE: Replace the `url` for each project below with the real GitHub repo link
-  // once it's public. Until then these link to your GitHub profile so nothing 404s.
-  // No star/fork/commit counts are shown anymore since those were placeholder numbers,
-  // not real data pulled from GitHub — showing fake stats is a bigger credibility risk
-  // than showing none. Add them back (ideally live via the GitHub API) once real.
-  featuredProjects: [
-    {
-      name: "telecom-kpi-anomaly-detector",
-      description: "Automated 4G/5G RAN cellular KPI anomaly detection engine utilizing Python (Pandas, Scikit-learn), SQL data modeling, and Power BI dashboards to forecast cell degradation and traffic bottlenecks.",
-      url: "https://github.com/saudazmat",
-      technologies: ["Python", "SQL", "Power BI", "Pandas", "Scikit-Learn"],
-      status: "Personal project"
-    },
-    {
-      name: "rf-traffic-analytics-pipeline",
-      description: "Telemetry ETL pipeline extracting VoLTE throughput, Grade of Service, and Call Drop Rate metrics into automated reporting and statistical distribution models.",
-      url: "https://github.com/saudazmat",
-      technologies: ["Python", "SQL", "Azure", "ETL", "VoLTE"],
-      status: "Personal project"
-    },
-    {
-      name: "azure-cloud-network-sentinel",
-      description: "Linux system administration and cybersecurity probe deployed on Azure with MongoDB, automating secure SSH telemetry collection and network anomaly detection.",
-      url: "https://github.com/saudazmat",
-      technologies: ["Linux", "Azure", "MongoDB", "Cybersecurity", "Bash"],
-      status: "Personal project"
     }
   ],
   extra: []
