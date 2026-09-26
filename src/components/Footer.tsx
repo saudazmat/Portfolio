@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
-import { Linkedin, Mail, Phone, ArrowUp, ExternalLink, Award, Github } from 'lucide-react';
+import { Linkedin, ArrowUp, ExternalLink, Award, Github } from 'lucide-react';
 import { resumeData } from '../resumeData';
+import { ContactActions } from './ContactActions';
 
 const getProfileIcon = (network: string) => {
   switch (network.toLowerCase()) {
@@ -25,12 +26,7 @@ export const Footer = () => {
         </div>
 
         <div className="flex items-center gap-6">
-          <a href={`mailto:${resumeData.basics.email}`} className="p-3 rounded-full bg-white/5 text-slate-400 hover:bg-blue-600 hover:text-white transition-all" title="Email">
-            <Mail size={20} />
-          </a>
-          <a href={`tel:${resumeData.basics.phone}`} className="p-3 rounded-full bg-white/5 text-slate-400 hover:bg-blue-600 hover:text-white transition-all" title="Call">
-            <Phone size={20} />
-          </a>
+          <ContactActions variant="footer" />
           {resumeData.basics.profiles.map((profile, idx) => (
             <a 
               key={idx}

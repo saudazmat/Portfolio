@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { Download, ChevronDown, Linkedin, Mail, Phone, Award, Github, ArrowUpRight, MapPin, Copy, ExternalLink } from 'lucide-react';
+import { Download, ChevronDown, Linkedin, Award, Github, ArrowUpRight, MapPin } from 'lucide-react';
 import { resumeData } from '../resumeData';
+import { ContactActions } from './ContactActions';
 import headshot from '../assets/images/headshot.png';
 import techBackground from '../assets/images/tech-background.png';
 import ibmSupportBadge from '../assets/images/ibm-it-support-professional-certificate.png';
@@ -16,52 +16,8 @@ const profileBadges = [
 ];
 
 export const Hero = () => {
-  const [openContactMenu, setOpenContactMenu] = useState<'email' | 'phone' | null>(null);
-  const [copyStatus, setCopyStatus] = useState<string | null>(null);
-  const contactMenuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const closeMenu = (event: PointerEvent) => {
-      if (event.target instanceof Node && !contactMenuRef.current?.contains(event.target)) {
-        setOpenContactMenu(null);
-        setCopyStatus(null);
-      }
-    };
-    const closeMenuOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setOpenContactMenu(null);
-        setCopyStatus(null);
-      }
-    };
-
-    document.addEventListener('pointerdown', closeMenu);
-    document.addEventListener('keydown', closeMenuOnEscape);
-    return () => {
-      document.removeEventListener('pointerdown', closeMenu);
-      document.removeEventListener('keydown', closeMenuOnEscape);
-    };
-  }, []);
-
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const copyContact = async (value: string, label: string) => {
-    try {
-      if (!navigator.clipboard) {
-        throw new Error('Clipboard access is unavailable in this browser or context.');
-      }
-      await navigator.clipboard.writeText(value);
-      setCopyStatus(`${label} copied.`);
-    } catch (error) {
-      const reason = error instanceof Error ? error.message : 'Clipboard permission was denied.';
-      setCopyStatus(`Could not copy ${label.toLowerCase()}: ${reason}`);
-    }
-  };
-
-  const toggleContactMenu = (menu: 'email' | 'phone') => {
-    setCopyStatus(null);
-    setOpenContactMenu(current => current === menu ? null : menu);
   };
 
   const getProfileIcon = (network: string) => {
@@ -249,75 +205,8 @@ export const Hero = () => {
               <span>Download CV</span>
             </a>
 
-            <div ref={contactMenuRef} className="ml-auto flex items-center gap-3">
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => toggleContactMenu('email')}
-                  aria-label="Email contact options"
-                  aria-haspopup="menu"
-                  aria-expanded={openContactMenu === 'email'}
-                  className="rounded-xl border border-white/10 bg-white/5 p-3 text-slate-300 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/20 hover:text-cyan-300"
-                >
-                  <Mail size={18} />
-                </button>
-                {openContactMenu === 'email' && (
-                  <div role="menu" aria-label="Email options" className="absolute bottom-full right-0 z-30 mb-2 w-64 rounded-xl border border-white/10 bg-slate-900 p-3 shadow-xl shadow-black/30">
-                    <p className="mb-2 break-all px-2 text-xs text-slate-400">{resumeData.basics.email}</p>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      onClick={() => void copyContact(resumeData.basics.email, 'Email address')}
-                      className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-slate-200 hover:bg-white/10"
-                    >
-                      <Copy size={15} /> Copy email
-                    </button>
-                    <a
-                      role="menuitem"
-                      href={`mailto:${resumeData.basics.email}`}
-                      onClick={() => setOpenContactMenu(null)}
-                      className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-200 hover:bg-white/10"
-                    >
-                      <ExternalLink size={15} /> Open email app
-                    </a>
-                    {copyStatus && <p aria-live="polite" className="mt-2 px-2 text-xs text-cyan-300">{copyStatus}</p>}
-                  </div>
-                )}
-              </div>
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => toggleContactMenu('phone')}
-                  aria-label="Phone contact options"
-                  aria-haspopup="menu"
-                  aria-expanded={openContactMenu === 'phone'}
-                  className="rounded-xl border border-white/10 bg-white/5 p-3 text-slate-300 transition-all hover:border-cyan-500/40 hover:bg-cyan-500/20 hover:text-cyan-300"
-                >
-                  <Phone size={18} />
-                </button>
-                {openContactMenu === 'phone' && (
-                  <div role="menu" aria-label="Phone options" className="absolute bottom-full right-0 z-30 mb-2 w-64 rounded-xl border border-white/10 bg-slate-900 p-3 shadow-xl shadow-black/30">
-                    <p className="mb-2 px-2 text-xs text-slate-400">{resumeData.basics.phone}</p>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      onClick={() => void copyContact(resumeData.basics.phone, 'Phone number')}
-                      className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-slate-200 hover:bg-white/10"
-                    >
-                      <Copy size={15} /> Copy phone number
-                    </button>
-                    <a
-                      role="menuitem"
-                      href={`tel:${resumeData.basics.phone}`}
-                      onClick={() => setOpenContactMenu(null)}
-                      className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-200 hover:bg-white/10"
-                    >
-                      <ExternalLink size={15} /> Call number
-                    </a>
-                    {copyStatus && <p aria-live="polite" className="mt-2 px-2 text-xs text-cyan-300">{copyStatus}</p>}
-                  </div>
-                )}
-              </div>
+            <div className="ml-auto">
+              <ContactActions />
             </div>
           </div>
         </motion.div>
