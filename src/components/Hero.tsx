@@ -69,7 +69,7 @@ export const Hero = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="flex flex-col items-center"
         >
-          <div className="group relative flex w-[min(68vw,340px)] items-center justify-center sm:w-[min(42vw,420px)] lg:w-[420px] xl:w-[500px]">
+          <div className="group relative flex h-[260px] w-[min(68vw,340px)] items-center justify-center sm:h-auto sm:w-[min(42vw,420px)] lg:w-[420px] xl:w-[500px]">
             <div className="absolute inset-0 rounded-[2rem] border border-cyan-400/20 bg-gradient-to-b from-cyan-400/[0.08] to-blue-500/[0.03] shadow-[0_0_55px_rgba(6,182,212,0.12),inset_0_0_35px_rgba(6,182,212,0.06)]" />
             <div className="absolute inset-[10%] rounded-[1.5rem] bg-cyan-500/20 blur-3xl transition-opacity duration-700 group-hover:opacity-90" />
             <div className="relative z-10 h-full w-full overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-slate-900/80 shadow-[0_18px_40px_rgba(34,211,238,0.14)] transition-transform duration-500 group-hover:scale-[1.01]">
