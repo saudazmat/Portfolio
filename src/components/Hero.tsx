@@ -2,8 +2,7 @@ import { motion } from 'motion/react';
 import { Download, ChevronDown, Linkedin, Award, Github, ArrowUpRight, MapPin } from 'lucide-react';
 import { resumeData } from '../resumeData';
 import { ContactActions } from './ContactActions';
-import headshot from '../assets/images/headshot.png';
-import techBackground from '../assets/images/tech-background.png';
+import heroPhotoGlow from '../assets/images/hero_photo_glow_v3.png';
 import ibmSupportBadge from '../assets/images/ibm-it-support-professional-certificate.png';
 import googleProjectBadge from '../assets/images/google-project-management-certificate-v1.png';
 import ibmCybersecurityBadge from '../assets/images/ibm-cybersecurity-analyst-professional-certificate.png';
@@ -54,7 +53,7 @@ export const Hero = () => {
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none bg-cover bg-center opacity-[0.12] mix-blend-screen"
-        style={{ backgroundImage: `url(${techBackground})`, backgroundPosition: 'center 45%' }}
+        style={{ backgroundImage: `url(${heroPhotoGlow})`, backgroundPosition: 'center 45%' }}
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-slate-950/55 via-slate-950/80 to-slate-950/65" />
       <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none bg-gradient-to-b from-transparent to-slate-950" />
@@ -70,18 +69,16 @@ export const Hero = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="flex flex-col items-center"
         >
-          <div className="group relative flex aspect-square w-[min(68vw,240px)] items-center justify-center sm:w-[min(42vw,300px)] lg:w-[320px] xl:w-[360px]">
-            <div className="absolute inset-[8%] rounded-full border border-cyan-400/20 bg-gradient-to-b from-cyan-400/[0.08] to-blue-500/[0.03] shadow-[0_0_55px_rgba(6,182,212,0.12),inset_0_0_35px_rgba(6,182,212,0.06)]" />
-            <div className="absolute inset-[12%] rounded-full bg-cyan-500/20 blur-3xl transition-opacity duration-700 group-hover:opacity-90" />
-            <img
-              src={headshot}
-              alt="Engr. Muhammad Saud"
-              className="relative z-10 h-full w-full object-contain object-center drop-shadow-[0_12px_32px_rgba(34,211,238,0.12)] transition-transform duration-500 group-hover:scale-[1.01]"
-              style={{
-                maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
-              }}
-            />
+          <div className="group relative flex w-[min(68vw,340px)] items-center justify-center sm:w-[min(42vw,420px)] lg:w-[420px] xl:w-[500px]">
+            <div className="absolute inset-0 rounded-[2rem] border border-cyan-400/20 bg-gradient-to-b from-cyan-400/[0.08] to-blue-500/[0.03] shadow-[0_0_55px_rgba(6,182,212,0.12),inset_0_0_35px_rgba(6,182,212,0.06)]" />
+            <div className="absolute inset-[10%] rounded-[1.5rem] bg-cyan-500/20 blur-3xl transition-opacity duration-700 group-hover:opacity-90" />
+            <div className="relative z-10 h-full w-full overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-slate-900/80 shadow-[0_18px_40px_rgba(34,211,238,0.14)] transition-transform duration-500 group-hover:scale-[1.01]">
+              <img
+                src={heroPhotoGlow}
+                alt="Engr. Muhammad Saud"
+                className="h-full w-full object-cover object-center grayscale-[0.05] contrast-110 brightness-[0.95] drop-shadow-[0_12px_32px_rgba(34,211,238,0.12)]"
+              />
+            </div>
           </div>
         </motion.div>
 
