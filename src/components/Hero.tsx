@@ -49,7 +49,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-10">
+    <section className="relative flex min-h-svh flex-col justify-start overflow-hidden px-5 py-16 sm:justify-center sm:px-8 sm:py-20 lg:px-10 lg:py-10">
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none bg-cover bg-center opacity-[0.12] mix-blend-screen"
